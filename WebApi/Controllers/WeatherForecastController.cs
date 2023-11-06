@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace CEAS_backend.Controllers
+namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

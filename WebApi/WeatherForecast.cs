@@ -1,4 +1,4 @@
-namespace CEAS_backend
+namespace WebApi
 {
     public class WeatherForecast
     {
