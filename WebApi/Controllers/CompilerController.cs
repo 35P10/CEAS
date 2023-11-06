@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Domain.Application;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
@@ -14,10 +16,21 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> ProcessInput(int idlangcode, string code)
+        [Route("checkSyntax")]
+        [ProducesResponseType(typeof(SyntaxStatusVM), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<SyntaxStatusVM>> ProcessInput([FromQuery] int idlangcode, [FromQuery] string code)
         {
-            return new List<WeatherForecast>();
-            ;
+            var response = new SyntaxStatusVM();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("run")]
+        [ProducesResponseType(typeof(RunResponseVM), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<RunResponseVM>> Compile([FromQuery] int idlangcode, [FromQuery] string code)
+        {
+            var response = new RunResponseVM();
+            return Ok(response);
         }
     }
 }
