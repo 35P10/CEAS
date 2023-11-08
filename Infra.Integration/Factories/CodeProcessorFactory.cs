@@ -23,6 +23,8 @@ namespace Domain.Infra.Integration.Factories
                         return scope.ServiceProvider.GetRequiredService<PythonCodeProcessor>();
                     case 2:
                         return scope.ServiceProvider.GetRequiredService<CPPCodeProcessor>();
+                    case 3:
+                        return scope.ServiceProvider.GetRequiredService<CSharpCodeProcessor>();
                     default:
                         throw new InvalidOperationException("Lenguaje no admitido");
                 }

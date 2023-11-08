@@ -13,6 +13,7 @@ namespace Infra.Integration
             
             services.AddTransient<PythonCodeProcessor>();
             services.AddTransient<CPPCodeProcessor>();
+            services.AddTransient<CSharpCodeProcessor>();
                         
             services.AddSingleton<ICodeProcessorFactory, CodeProcessorFactory>();
             return services;

@@ -2,9 +2,8 @@
 {
     public class SyntaxStatus
     {
-        public bool IsOk {get; set;}
-        public int Errors {get; set;} = 0;
-        public int Obs {get; set;} = 0;
-        public string? Msg {get; set;}
+        public bool IsOk {get; set;} = true;
+        public List<string> ErrorMsg {get; set;} = new List<string>();
+        public List<string> ObsMsg {get; set;} = new List<string>();
     }
 }
