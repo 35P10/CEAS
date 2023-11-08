@@ -1,6 +1,6 @@
-﻿namespace Domain.Application
+﻿namespace Domain.Application.Models
 {
-    public class SyntaxStatusVM
+    public class SyntaxResponseVM
     {
         public bool IsOk {get; set;}
         public int Errors {get; set;} = 0;

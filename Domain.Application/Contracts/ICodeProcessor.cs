@@ -1,5 +1,4 @@
-﻿using System.Security.Permissions;
-using Domain.Core;
+﻿using Domain.Core.Models;
 
 namespace Domain.Application.Contracts
 {

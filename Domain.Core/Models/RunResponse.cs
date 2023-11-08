@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-
-namespace Domain.Core;
-
-public class RunResponse
+﻿namespace Domain.Core.Models
 {
-    public int IdResponde;
-    public string? Output;
+    public class RunResponse
+    {
+        public int IdResponde;
+        public string? Output;
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace Domain.Application
+﻿namespace Domain.Application.Models
 {
     public class RunResponseVM
     {

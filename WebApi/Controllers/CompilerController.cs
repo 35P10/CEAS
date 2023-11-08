@@ -1,6 +1,9 @@
 ﻿using System.Net;
-using Domain.Application;
+using Domain.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using Domain.Application.Features.ProcessInputHandle;
+using Domain.Application.Models;
 
 namespace WebApi.Controllers
 {
@@ -9,18 +12,21 @@ namespace WebApi.Controllers
     public class CompilerController : ControllerBase
     {
         private readonly ILogger<CompilerController> _logger;
+        private readonly IMediator _mediator;
 
-        public CompilerController(ILogger<CompilerController> logger)
+        public CompilerController(ILogger<CompilerController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
         [HttpGet]
         [Route("checkSyntax")]
-        [ProducesResponseType(typeof(SyntaxStatusVM), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<SyntaxStatusVM>> ProcessInput([FromQuery] int idlangcode, [FromQuery] string code)
+        [ProducesResponseType(typeof(SyntaxResponseVM), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<SyntaxResponseVM>> ProcessInput([FromQuery] int idlangcode, [FromQuery] string code)
         {
-            var response = new SyntaxStatusVM();
+            var query = new ProcessInputQry(idlangcode,code);
+            var response = await _mediator.Send(query);
             return Ok(response);
         }
 
