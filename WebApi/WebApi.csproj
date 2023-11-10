@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain.Application\Domain.Application.csproj" />
     <ProjectReference Include="..\Infra.Integration\Infra.Integration.csproj" />
+    <ProjectReference Include="..\Tests\CEAS.Infra.Integration\CEAS.Infra.Integration.Test.csproj" />
   </ItemGroup>
 
 </Project>
