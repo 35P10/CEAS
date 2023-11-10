@@ -14,6 +14,7 @@ namespace Externos.Domain.Application.Mappings
                 .ForMember(dt => dt.ErrorMsg, opt => opt.MapFrom(src => src.ErrorMsg))
                 .ForMember(dt => dt.Obs, opt => opt.MapFrom(src => src.ObsMsg.Count))
                 .ForMember(dt => dt.ObsMsg, opt => opt.MapFrom(src => src.ObsMsg));
+            CreateMap<SyntaxStatus,RunResponseVM>();
         }
     }
 }

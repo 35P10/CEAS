@@ -3,7 +3,9 @@ using Domain.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Domain.Application.Features.ProcessInputHandle;
+using Domain.Application.Features.CompileHandle;
 using Domain.Application.Models;
+using Domain.Core.Models;
 
 namespace WebApi.Controllers
 {
@@ -20,22 +22,23 @@ namespace WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("checkSyntax")]
         [ProducesResponseType(typeof(SyntaxResponseVM), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<SyntaxResponseVM>> ProcessInput([FromQuery] int idlangcode, [FromQuery] string code)
+        public async Task<ActionResult<SyntaxResponseVM>> ProcessInput(InputCode inputCode)
         {
-            var query = new ProcessInputQry(idlangcode,code);
+            var query = new ProcessInputQry(inputCode.idCode,inputCode.Code);
             var response = await _mediator.Send(query);
             return Ok(response);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("run")]
         [ProducesResponseType(typeof(RunResponseVM), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RunResponseVM>> Compile([FromQuery] int idlangcode, [FromQuery] string code)
+        public async Task<ActionResult<RunResponseVM>> Compile( InputCode inputCode)
         {
-            var response = new RunResponseVM();
+            var query = new CompileQry(inputCode.idCode,inputCode.Code);
+            var response = await _mediator.Send(query);
             return Ok(response);
         }
     }

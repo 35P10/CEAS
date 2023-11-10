@@ -2,7 +2,7 @@
 {
     public class InputCode
     {
-        public int idCode {get; } = 0;
-        public string? Code;
+        public int idCode {get;set;} = 0;
+        public string? Code{get; set;}= "";
     }
 }
