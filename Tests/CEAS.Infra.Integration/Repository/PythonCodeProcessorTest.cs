@@ -33,6 +33,40 @@ namespace CEAS.Infra.Integration.Test.Repository
             Assert.NotEmpty(result.ErrorMsg);
         }
 
+        [Fact]
+        public async Task CheckSyntax_EmptyCode()
+        {
+            string codeToCheck = "";
+
+            var result = await _PythonCodeProcessor.CheckSyntaxAsync(codeToCheck);
+
+            Assert.True(result.IsOk);
+            Assert.Empty(result.ErrorMsg);
+        }
+
+        [Fact]
+        public async Task CheckSyntax_CodeWithWarning()
+        {
+            string codeToCheck = "print('Hello, World!')\nprint('Additional statement')";
+
+            var result = await _PythonCodeProcessor.CheckSyntaxAsync(codeToCheck);
+
+            Assert.True(result.IsOk);
+            Assert.Empty(result.ErrorMsg);
+            Assert.NotEmpty(result.ObsMsg);
+        }
+
+        [Fact]
+        public async Task CheckSyntax_CodeWithMultipleErrors()
+        {
+            string codeToCheck = "print('Hello, World')\nprint('Additional statement'";
+
+            var result = await _PythonCodeProcessor.CheckSyntaxAsync(codeToCheck);
+
+            Assert.False(result.IsOk);
+            Assert.NotEmpty(result.ErrorMsg);
+            Assert.True(result.ErrorMsg.Count > 1);
+        }
     }
 
 }

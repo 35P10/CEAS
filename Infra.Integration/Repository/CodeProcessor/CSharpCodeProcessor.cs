@@ -15,8 +15,16 @@ namespace Infra.Integration.Repository.CodeProcessor
             var result = new SyntaxStatus();
 
             var syntaxTree = CSharpSyntaxTree.ParseText(codeToCheck);
+
+            // Obtener las referencias necesarias
+            var references = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => !a.IsDynamic && !string.IsNullOrWhiteSpace(a.Location))
+                .Select(a => MetadataReference.CreateFromFile(a.Location))
+                .ToList();
+
+            // Agregar las referencias al ensamblado que contiene Object y Decimal
             var compilation = CSharpCompilation.Create("TempAssembly")
-                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location))
+                .AddReferences(references)
                 .AddSyntaxTrees(syntaxTree);
 
             var diagnostics = compilation.GetDiagnostics();
@@ -28,7 +36,7 @@ namespace Infra.Integration.Repository.CodeProcessor
                     result.ErrorMsg.Add(diagnostic.GetMessage());
                     result.IsOk = false;
                 }
-                else 
+                else
                 {
                     result.ObsMsg.Add(diagnostic.GetMessage());
                 }
@@ -42,8 +50,16 @@ namespace Infra.Integration.Repository.CodeProcessor
             var result = new SyntaxStatus();
 
             var syntaxTree = CSharpSyntaxTree.ParseText(codeToCheck);
+
+            // Obtener las referencias necesarias
+            var references = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => !a.IsDynamic && !string.IsNullOrWhiteSpace(a.Location))
+                .Select(a => MetadataReference.CreateFromFile(a.Location))
+                .ToList();
+
+            // Agregar las referencias al ensamblado que contiene Object y Decimal
             var compilation = CSharpCompilation.Create("TempAssembly")
-                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location))
+                .AddReferences(references)
                 .AddSyntaxTrees(syntaxTree);
 
             var diagnostics = compilation.GetDiagnostics();
