@@ -4,5 +4,6 @@
     {
         public int IdResponse { get; set; } = 0;
         public string? Output { get; set; } = "";
+        
     }
 }
