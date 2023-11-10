@@ -14,8 +14,7 @@ namespace CEAS.Infra.Integration.Test.Repository
         [Fact]
         public async Task CheckSyntax_ValidCode()
         {
-            string codeToCheck = "using System; class MyClass { static void Main() { Console.WriteLine(\"Hello, World!\"); } }";
-
+            string codeToCheck = "using System;\npublic class HelloWorld\n{\npublic static void Main(string[] args)\n{\nConsole.WriteLine (\"Hello Mono World\");\n}\n}";
             var result = await  _cSharpCodeProcessor.CheckSyntaxAsync(codeToCheck);
 
             Assert.True(result.IsOk);
