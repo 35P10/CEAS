@@ -9,6 +9,13 @@ namespace Infra.Integration.Repository.CodeProcessor
         {
             throw new NotImplementedException();
         }
+
+
+        public async Task<SyntaxStatus> CheckSyntaxAsync(string codeToCheck)
+        {
+            throw new NotImplementedException();
+        }
+
         public SyntaxStatus compile(string code)
         {
             throw new NotImplementedException();
