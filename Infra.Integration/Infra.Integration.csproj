@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="IronPython" Version="3.4.1" />
     <PackageReference Include="IronPython.Interpreter" Version="2.7.4" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
