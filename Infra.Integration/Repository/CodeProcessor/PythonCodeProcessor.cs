@@ -11,14 +11,14 @@ namespace Infra.Integration.Repository.CodeProcessor
 {
     public class PythonCodeProcessor:ICodeProcessor
     {
-        public SyntaxStatus checkSyntax(string code)
+        public SyntaxStatus checkSyntax(string codeToCheck)
         {
             var result = new SyntaxStatus();
 
             try
             {
                 var engine = Python.CreateEngine();
-                var scriptSource = engine.CreateScriptSourceFromString(code, SourceCodeKind.Statements);
+                var scriptSource = engine.CreateScriptSourceFromString(codeToCheck, SourceCodeKind.Statements);
                 scriptSource.Compile();
 
                 result.IsOk = true;
