@@ -80,7 +80,7 @@ namespace Infra.Integration.Repository.CodeProcessor
             return result;
         }
 
-        public SyntaxStatus compile(string code)
+        public RunResponse execute(string code)
         {
             throw new NotImplementedException();
         }

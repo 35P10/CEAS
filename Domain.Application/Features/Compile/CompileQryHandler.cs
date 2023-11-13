@@ -22,23 +22,23 @@ namespace Domain.Application.Features.CompileHandle
             try
             {
                 _codeProcessor = _codeProcessorFactory.GetCompiler(request._IdCodeLang);
-                var sintaxis = new SyntaxStatus();
-                if(_codeProcessor.checkSyntax(request._Code).IsOk==true)
-                   {
-                    sintaxis = _codeProcessor.compile(request._Code);  
-                   }
+                var Execution = new RunResponse();
+                if (_codeProcessor.checkSyntax(request._Code).IsOk == true)
+                {
+                    Execution = _codeProcessor.execute(request._Code);  
+                }
                 else 
-                   {
-                    sintaxis = new SyntaxStatus
+                {
+                    Execution =  new RunResponse
                     {
-                        IsOk = false,
+                        IdResponse = -1,
                     };
                 }   
-                   return _mapper.Map<RunResponseVM>(sintaxis);                
+                   return _mapper.Map<RunResponseVM>(Execution);                
             }
             catch (Exception ex)
             {
-                throw new Exception("Error en el analisis de sintaxis");
+                throw new Exception("Error en la ejecucion del code");
             }
         }
     }

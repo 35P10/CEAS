@@ -2,7 +2,7 @@
 {
     public class RunResponse
     {
-        public int IdResponde;
+        public int IdResponse;
         public string? Output;
     }
 }

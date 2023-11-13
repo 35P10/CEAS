@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Application.Contracts;
@@ -43,9 +44,45 @@ namespace Infra.Integration.Repository.CodeProcessor
             return checkSyntax(codeToCheck);
         }
 
-        public SyntaxStatus compile(string code)
+        public RunResponse execute(string code)
         {
-            throw new NotImplementedException();
+            var engine = Python.CreateEngine();
+            var scope = engine.CreateScope();
+
+            var outputStream = new MemoryStream();
+            engine.Runtime.IO.SetOutput(outputStream, new StreamWriter(outputStream));
+
+            try
+            {
+
+            var scriptSource = engine.CreateScriptSourceFromString(code, SourceCodeKind.Statements);
+            scriptSource.Execute(scope);
+
+            // Obtener la salida del MemoryStream como una cadena
+            outputStream.Seek(0, SeekOrigin.Begin);
+            var reader = new StreamReader(outputStream);
+            string output = reader.ReadToEnd();
+
+
+                return new RunResponse
+                {
+                    IdResponse = 1,
+                    Output = output
+                };
+            }
+            catch (Exception ex)
+            {
+                return new RunResponse
+                {
+                    IdResponse = -1,
+                    Output = $"Error: {ex.Message}"
+                };
+            }
+        }
+
+        public async Task<RunResponse> CheckExecutionAsync(string codeToCheck)
+        {
+            return execute(codeToCheck);
         }
     }
 }
