@@ -1,9 +1,127 @@
 ﻿@page "/"
+@inject HttpClient httpClient
+@using System.Text
+@using System.Text.Json
+@using FrontEnd.Models
 
-<PageTitle>Index</PageTitle>
+<h3>Compiler</h3>
 
-<h1>Hello, world!</h1>
+<div>
+    <label for="idCodeSelect">Select idCode:</label>
+    <select id="idCodeSelect" @onchange="HandleIdCodeChange">
+        <option value="1">Python</option>
+        <option value="3">C#</option>
+    </select>
+</div>
 
-Welcome to your new app.
+<div>
+    <label for="codeInput">Input:</label>
+    <textarea id="codeInput" @bind="code" @oninput="HandleInput" />
+</div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div>
+    <strong>Code Status:</strong>
+    <div>
+        <strong>Error: @sintaxisModel.errors</strong>
+        <ul>
+            @foreach (var errorMsg in sintaxisModel.errorMsg)
+            {
+                <li>@errorMsg</li>
+            }
+        </ul>
+    </div>
+    <div>
+        <strong>Obs: @sintaxisModel.obs</strong>
+        <ul>
+            @foreach (var obMsg in sintaxisModel.obsMsg)
+            {
+                <li>@obMsg</li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div>
+    <button @onclick="RunCompiler">Run</button>
+</div>
+
+<div>
+    <strong>Output:</strong>
+    <p>@outputModel.idResponse</p>
+    <p>@outputModel.output</p>
+</div>
+
+@code {
+    private string code = "";
+    private int selectedIdCode = 1;
+    private RunModel outputModel = new RunModel();
+    private SintaxisModel sintaxisModel = new SintaxisModel();
+    private Timer debounceTimer;
+    private int debounceDelay = 500;
+
+    private async Task HandleIdCodeChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var idCode))
+        {
+            selectedIdCode = idCode;
+            await CheckSintaxis();
+        }
+    }
+
+
+    private async Task HandleInput(ChangeEventArgs e)
+    {
+        code = e.Value.ToString();
+        debounceTimer?.Dispose();
+        debounceTimer = new Timer(async state => await CheckSintaxis(), null, debounceDelay, Timeout.Infinite);
+    }
+
+    private async Task CheckSintaxis()
+    {
+        var requestData = new { idCode = selectedIdCode, code };
+        var json = JsonSerializer.Serialize(requestData);
+
+        var request = new HttpRequestMessage
+            {
+                RequestUri = new Uri("http://localhost:5071/Compiler/checkSyntax"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json"),
+                Method = HttpMethod.Post
+            };
+
+        using (var response = await httpClient.SendAsync(request))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                sintaxisModel = JsonSerializer.Deserialize<SintaxisModel>(jsonResponse);
+            }
+        }
+    }
+
+    private async Task RunCompiler()
+    {
+        var request = new HttpRequestMessage
+            {
+                RequestUri = new Uri("http://localhost:5071/Compiler/run"),
+                Content = new StringContent($"{{\"idCode\": {selectedIdCode}, \"code\": \"{code}\"}}", Encoding.UTF8, "application/json"),
+                Method = HttpMethod.Post
+            };
+
+        using (var response = await httpClient.SendAsync(request))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                outputModel = JsonSerializer.Deserialize<RunModel>(json);
+            }
+            else
+            {
+                outputModel = new RunModel
+                    {
+                        idResponse = -1,
+                        output = $"Error: {response.StatusCode}"
+                    };
+            }
+        }
+    }
+}
