@@ -34,6 +34,19 @@ namespace CEAS.Infra.Integration.Test.Repository
         }
 
         [Fact]
+        public async Task CheckSyntax_InvalidCode2()
+        {
+            // Arrange
+            string pythonCode = "code";
+
+            var result = await _PythonCodeProcessor.CheckSyntaxAsync(pythonCode);
+
+            // Assert
+            Assert.False(result.IsOk);
+            Assert.NotEmpty(result.ErrorMsg);
+        }
+
+        [Fact]
         public async Task CheckSyntax_EmptyCode()
         {
             string codeToCheck = "";
