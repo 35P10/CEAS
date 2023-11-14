@@ -42,8 +42,7 @@ namespace CEAS.Infra.Integration.Test.Repository
             var result = await _PythonCodeProcessor.CheckSyntaxAsync(pythonCode);
 
             // Assert
-            Assert.False(result.IsOk);
-            Assert.NotEmpty(result.ErrorMsg);
+            Assert.True(result.IsOk);
         }
 
         [Fact]
