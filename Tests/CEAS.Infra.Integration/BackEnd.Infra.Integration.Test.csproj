@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infra.Integration\Infra.Integration.csproj" />
+    <ProjectReference Include="..\..\Infra.Integration\BackEnd.Infra.Integration.csproj" />
   </ItemGroup>
 
 </Project>
