@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEnd.WebApi", "WebApi\BackEnd.WebApi.csproj", "{64B8A774-F622-4A07-BC1E-A4961233DD7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{64B8A774-F622-4A07-BC1E-A4961233DD7C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEnd.Infra.Integration", "Infra.Integration\BackEnd.Infra.Integration.csproj", "{03A369DA-4734-4872-BDC5-A4FE470DA4B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Integration", "Infra.Integration\Infra.Integration.csproj", "{03A369DA-4734-4872-BDC5-A4FE470DA4B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEnd.Domain.Core", "Domain.Core\BackEnd.Domain.Core.csproj", "{5AFD7929-2F15-4D79-B715-83E213BBB648}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Core", "Domain.Core\Domain.Core.csproj", "{5AFD7929-2F15-4D79-B715-83E213BBB648}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEnd.Domain.Application", "Domain.Application\BackEnd.Domain.Application.csproj", "{31C08F70-5F33-4ED2-94E8-1029513AECA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Application", "Domain.Application\Domain.Application.csproj", "{31C08F70-5F33-4ED2-94E8-1029513AECA9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd.Tests", "BackEnd.Tests", "{176ADAD3-218D-4FAD-B6F5-F1D512BE19F5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{176ADAD3-218D-4FAD-B6F5-F1D512BE19F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEnd.Infra.Integration.Test", "Tests\CEAS.Infra.Integration\BackEnd.Infra.Integration.Test.csproj", "{EB8B1C4C-DDF3-421F-8FE6-5B71FE288429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEAS.Infra.Integration.Test", "Tests\CEAS.Infra.Integration\CEAS.Infra.Integration.Test.csproj", "{EB8B1C4C-DDF3-421F-8FE6-5B71FE288429}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEnd.Razor", "FrontEnd\FrontEnd.Razor.csproj", "{F569F47A-60BF-47B5-8475-615E8F9EF5AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEnd", "FrontEnd\FrontEnd.csproj", "{F569F47A-60BF-47B5-8475-615E8F9EF5AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

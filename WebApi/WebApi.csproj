@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain.Application\BackEnd.Domain.Application.csproj" />
-    <ProjectReference Include="..\Infra.Integration\BackEnd.Infra.Integration.csproj" />
-    <ProjectReference Include="..\Tests\CEAS.Infra.Integration\BackEnd.Infra.Integration.Test.csproj" />
+    <ProjectReference Include="..\Domain.Application\Domain.Application.csproj" />
+    <ProjectReference Include="..\Infra.Integration\Infra.Integration.csproj" />
+    <ProjectReference Include="..\Tests\CEAS.Infra.Integration\CEAS.Infra.Integration.Test.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain.Application\BackEnd.Domain.Application.csproj" />
+    <ProjectReference Include="..\Domain.Application\Domain.Application.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
