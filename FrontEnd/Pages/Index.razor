@@ -4,51 +4,53 @@
 @using System.Text.Json
 @using FrontEnd.Models
 
-<h3>Compiler</h3>
+<div class="centered-content">
+    <h3>Compiler</h3>
 
-<div>
-    <label for="idCodeSelect">Select idCode:</label>
-    <select id="idCodeSelect" @onchange="HandleIdCodeChange">
-        <option value="1">Python</option>
-        <option value="3">C#</option>
-    </select>
-</div>
-
-<div>
-    <label for="codeInput">Input:</label>
-    <textarea id="codeInput" @bind="code" @oninput="HandleInput" />
-</div>
-
-<div>
-    <strong>Code Status:</strong>
     <div>
-        <strong>Error: @sintaxisModel.errors</strong>
-        <ul>
-            @foreach (var errorMsg in sintaxisModel.errorMsg)
-            {
-                <li>@errorMsg</li>
-            }
-        </ul>
+        <label for="idCodeSelect">Select language:</label>
+        <select id="idCodeSelect" @onchange="HandleIdCodeChange">
+            <option value="1">Python</option>
+            <option value="3">C#</option>
+        </select>
     </div>
+
     <div>
-        <strong>Obs: @sintaxisModel.obs</strong>
-        <ul>
-            @foreach (var obMsg in sintaxisModel.obsMsg)
-            {
-                <li>@obMsg</li>
-            }
-        </ul>
+        <label for="codeInput">Input:</label>
+        <textarea id="codeInput" @bind="code" @oninput="HandleInput" />
     </div>
-</div>
 
-<div>
-    <button @onclick="RunCompiler">Run</button>
-</div>
+    <div>
+        <strong>Code Status</strong>
+        <div>
+            <strong>Error: @sintaxisModel.errors</strong>
+            <ul>
+                @foreach (var errorMsg in sintaxisModel.errorMsg)
+                {
+                    <li>@errorMsg</li>
+                }
+            </ul>
+        </div>
+        <div>
+            <strong>Obs: @sintaxisModel.obs</strong>
+            <ul>
+                @foreach (var obMsg in sintaxisModel.obsMsg)
+                {
+                    <li>@obMsg</li>
+                }
+            </ul>
+        </div>
+    </div>
 
-<div>
-    <strong>Output:</strong>
-    <p>@outputModel.idResponse</p>
-    <p>@outputModel.output</p>
+    <div>
+        <button @onclick="RunCompiler">Run</button>
+    </div>
+
+    <div>
+        <strong>Output:</strong>
+        <p>@outputModel.idResponse</p>
+        <p>@outputModel.output</p>
+    </div>
 </div>
 
 @code {
