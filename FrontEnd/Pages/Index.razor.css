@@ -1,4 +1,69 @@
-﻿div {
-    display:block;
-    color:red;
+﻿body {
+    margin-top: 50px; 
+    font-family: 'Arial', sans-serif;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.centered-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    text-align: center;
+    margin: auto;
+    margin-top: 10vh; 
+}
+
+h3 {
+    color: #00a86b;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #00a86b;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #008553;
+}
+
+strong {
+    display: block;
+    margin-top: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 5px;
 }
