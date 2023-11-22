@@ -20,7 +20,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 
 # Copia los archivos publicados desde el contenedor de compilación
-COPY --from=build /app/out .
+COPY --from=build /app/WebApi/out .
 
 # Establece la variable de entorno ASPNETCORE_URLS
 ENV ASPNETCORE_URLS=http://+:80
