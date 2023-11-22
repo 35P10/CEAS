@@ -13,13 +13,15 @@ namespace FrontEnd
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(hostEnvironment.BaseAddress) });
 
             // Registra CEASRepo con la fábrica que toma dos parámetros
+            var apiUri = hostEnvironment.IsDevelopment() ?
+                configuration.GetValue<string>("DebugSettings:ApiUri", "http://localhost:5071/")  :
+                configuration.GetValue<string>("ReleaseSettings:ApiUri", "http://localhost:8080/") ;
+
             services.AddTransient<ICEAS>(provider =>
             {
                 var httpClient = provider.GetRequiredService<HttpClient>();
 
-                var uri = "http://localhost:5071/";
-
-                return new CEASRepo(uri, httpClient);
+                return new CEASRepo(apiUri, httpClient);
             });
 
             return services;
