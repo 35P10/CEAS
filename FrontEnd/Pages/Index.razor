@@ -1,5 +1,9 @@
 ﻿@page "/"
 @inject HttpClient httpClient
+
+@using FrontEnd.Services.Contracts;
+@inject ICEAS CEASService
+
 @using System.Text
 @using System.Text.Json
 @using FrontEnd.Models
@@ -70,7 +74,6 @@
         }
     }
 
-
     private async Task HandleInput(ChangeEventArgs e)
     {
         code = e.Value.ToString();
@@ -80,50 +83,11 @@
 
     private async Task CheckSintaxis()
     {
-        var requestData = new { idCode = selectedIdCode, code };
-        var json = JsonSerializer.Serialize(requestData);
-
-        var request = new HttpRequestMessage
-            {
-                RequestUri = new Uri("http://localhost:5071/Compiler/checkSyntax"),
-                Content = new StringContent(json, Encoding.UTF8, "application/json"),
-                Method = HttpMethod.Post
-            };
-
-        using (var response = await httpClient.SendAsync(request))
-        {
-            if (response.IsSuccessStatusCode)
-            {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                sintaxisModel = JsonSerializer.Deserialize<SintaxisModel>(jsonResponse);
-            }
-        }
+        sintaxisModel = await CEASService.CheckSintaxisAsync(selectedIdCode, code);
     }
 
     private async Task RunCompiler()
     {
-        var request = new HttpRequestMessage
-            {
-                RequestUri = new Uri("http://localhost:5071/Compiler/run"),
-                Content = new StringContent($"{{\"idCode\": {selectedIdCode}, \"code\": \"{code}\"}}", Encoding.UTF8, "application/json"),
-                Method = HttpMethod.Post
-            };
-
-        using (var response = await httpClient.SendAsync(request))
-        {
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                outputModel = JsonSerializer.Deserialize<RunModel>(json);
-            }
-            else
-            {
-                outputModel = new RunModel
-                    {
-                        idResponse = -1,
-                        output = $"Error: {response.StatusCode}"
-                    };
-            }
-        }
+        outputModel = await CEASService.RunCompilerAsync(selectedIdCode, code);
     }
 }
