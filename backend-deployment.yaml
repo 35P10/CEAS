@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ceas.backend:tag
+          image: ceas.backend
           ports:
             - containerPort: 80

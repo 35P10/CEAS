@@ -21,19 +21,25 @@
 
 # K8s
 
-## BackEnd 
+## FrontEnd
 
 - kubectl apply -f frontend-deployment.yaml
 - kubectl apply -f frontend-service.yaml
 - kubectl get service frontend-service
 
-## FrontEnd
+## BackEnd 
 
 - kubectl apply -f backend-deployment.yaml
 - kubectl apply -f backend-service.yaml
 - kubectl get service backend-service
 
-- kubectl get svc frontend-service
+
+## Ports
+- kubectl get pods 
+- kubectl port-forward pod/ <IDpod-Front> 8082:80
+- kubectl port-forward pod/ <IDpod-Back> 8080:80
+
+
 
 
 
