@@ -31,7 +31,7 @@ namespace FrontEnd.Services.Repository
                 Method = HttpMethod.Post
             };
 
-            using (var response = _httpClient.SendAsync(request).Result)
+            using (var response = await _httpClient.SendAsync(request))
             {
                 if (response.IsSuccessStatusCode)
                 {
