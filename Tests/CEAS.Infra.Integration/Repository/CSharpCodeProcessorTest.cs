@@ -66,6 +66,15 @@ namespace CEAS.Infra.Integration.Test.Repository
             Assert.True(result.ErrorMsg.Count > 1); // Asegura que hay más de un error en el resultado
         }
 
+        [Fact]
+        public async Task Run_ValidCode()
+        {
+            string codeToCheck = "using System;\npublic class HelloWorld\n{\npublic static void Main(string[] args)\n{\nConsole.WriteLine (\"Hello Mono World\");\n}\n}";
+            var result = await  _cSharpCodeProcessor.CheckExecutionAsync(codeToCheck);
+
+            Assert.Equal(1, result.IdResponse);
+            Assert.Equal("Hello Mono World\r\n", result.Output);
+        }
     }
 
 }
