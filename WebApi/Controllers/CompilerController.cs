@@ -41,5 +41,47 @@ namespace WebApi.Controllers
             var response = await _mediator.Send(query);
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("/")]
+        [ProducesResponseType(typeof(SyntaxResponseVM), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<SyntaxResponseVM>> Idle()
+        {
+            var temp = new InputCode(){
+                idCode = 1,
+                Code = "print('Hello World')"
+            };
+            var query = new ProcessInputQry(temp.idCode,temp.Code);
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("test")]
+        [ProducesResponseType(typeof(SyntaxResponseVM), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<SyntaxResponseVM>> Idle2()
+        {
+            var temp = new InputCode(){
+                idCode = 1,
+                Code = "print('Hello World')"
+            };
+            var query = new ProcessInputQry(temp.idCode,temp.Code);
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("test")]
+        [ProducesResponseType(typeof(SyntaxResponseVM), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<SyntaxResponseVM>> Idle3()
+        {
+            var temp = new InputCode(){
+                idCode = 1,
+                Code = "print('Hello World')"
+            };
+            var query = new ProcessInputQry(temp.idCode,temp.Code);
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
     }
 }
