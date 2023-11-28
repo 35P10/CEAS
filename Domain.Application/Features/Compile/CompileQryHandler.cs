@@ -32,9 +32,10 @@ namespace Domain.Application.Features.CompileHandle
                     Execution =  new RunResponse
                     {
                         IdResponse = -1,
+                        Output = "Error de sintaxis"
                     };
                 }   
-                   return _mapper.Map<RunResponseVM>(Execution);                
+                return _mapper.Map<RunResponseVM>(Execution);                
             }
             catch (Exception ex)
             {
