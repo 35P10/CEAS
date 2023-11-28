@@ -14,6 +14,18 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ceas.frontend
+          image: us-central1-docker.pkg.dev/ceas-project/ceas-repo/frontend:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8082
+          env:
+            - name: PORT
+              value: "8082"
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+              ephemeral-storage: "1Gi"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+              ephemeral-storage: "1Gi"
