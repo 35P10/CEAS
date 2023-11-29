@@ -10,6 +10,17 @@
     margin: 0;
 }
 
+.monaco-editor-container { /* for all editor instances */
+    height: 200px;
+    text-align: left;
+}
+
+
+#my-editor-instance-id { /* for a specific editor instance */
+    height: 100px;
+}
+
+
 .centered-content {
     background-color: #fff;
     padding: 20px;
