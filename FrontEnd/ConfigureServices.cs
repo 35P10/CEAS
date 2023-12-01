@@ -1,6 +1,8 @@
 ﻿using FrontEnd.Services.Contracts;
 using FrontEnd.Services.Repository;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 
 namespace FrontEnd
 {

@@ -1,7 +1,9 @@
 using Domain.Application.Contracts;
 using Domain.Infra.Integration.Factories;
 using Infra.Integration;
-using AutoMapper;
+using Microsoft.AspNetCore.Builder;
+using Domain.Application.Models;
+using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,14 @@ builder.Services.AddCors(options =>
                                             .AllowAnyHeader());
                     });
 
+
+builder.Services.AddSignalR();
+
+builder.Services.AddResponseCompression(opts =>
+{
+    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+          new[] { "application/octet-stream" });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -35,12 +45,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAnyOrigin");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors("AllowAnyOrigin");
-
+app.UseResponseCompression();
+app.MapHub<CEAShub>("/hubs/ceashub")
+    .RequireCors("AllowAnyOrigin");
 app.MapControllers();
 
 app.Run();
