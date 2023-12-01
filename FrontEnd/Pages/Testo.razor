@@ -1,5 +1,6 @@
 ﻿@page "/testo"
 @using Microsoft.AspNetCore.SignalR.Client
+@using System.Timers
 
 <h1>Welcome to SignalR with Blazor</h1>
 <button class="btn btn-success" @onclick="async () => await ConnectToServer()" disabled="@isConnected">Connect</button>
@@ -21,8 +22,9 @@
     HubConnection _connection = null;
     bool isConnected = false;
     string connectionStatus = "Closed";
-
     List<string> notifications = new List<string>();
+
+    private System.Timers.Timer messageTimer;
 
     private async Task ConnectToServer()
     {
@@ -31,22 +33,48 @@
             .Build();
 
         await _connection.StartAsync();
-        isConnected = true;
         connectionStatus = "Connected :-)";
 
         _connection.Closed += async (s) =>
         {
-            isConnected = false;
             connectionStatus = "Disconnected";
             await _connection.StartAsync();
             isConnected = true;
         };
 
-        _connection.On<string>("notification", m =>
+
+        _connection.Closed += (exception) =>
         {
-            notifications.Add(m);
-            StateHasChanged();
+        // Loguea o imprime el motivo del cierre
+        Console.WriteLine($"Connection closed: {exception?.Message}");
+        return Task.CompletedTask;
+        };
+
+
+        isConnected = _connection?.State == HubConnectionState.Connected;
+
+        _connection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            var encodedMsg = $"{user}: {message}";
+            notifications.Add(encodedMsg);
+            InvokeAsync(StateHasChanged);
         });
+
+        // Inicia el temporizador para enviar mensajes cada 5 segundos
+        messageTimer = new System.Timers.Timer(5000);
+        messageTimer.Elapsed += async (sender, e) => await SendMessage();
+        messageTimer.AutoReset = true;
+        messageTimer.Enabled = true;
     }
 
+    private async Task SendMessage()
+    {
+        // Envía un mensaje cada cierto tiempo
+        if (_connection?.State == HubConnectionState.Connected)
+        {
+            var user = "NombreUsuario";
+            var message = "Hola desde Blazor";
+            await _connection.SendAsync("SendMessage", user, message);
+        }
+    }
 }

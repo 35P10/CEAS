@@ -20,7 +20,10 @@ builder.Services.AddCors(options =>
                     });
 
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(o =>
+{
+  o.EnableDetailedErrors = true;
+});
 
 builder.Services.AddResponseCompression(opts =>
 {
