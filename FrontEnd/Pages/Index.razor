@@ -12,61 +12,62 @@
 <div class="centered-content">
     <h3>Compiler</h3>
 
-    <div>
-        <label for="idCodeSelect">Select language:</label>
-        <select id="idCodeSelect" @onchange="HandleIdCodeChange">
-            <option value="1">Python</option>
-            <option value="3">C#</option>
-        </select>
-    </div>
+    <div class="column-container">
+        <div class="left-column">
+            <label for="idCodeSelect">Select language:</label>
+            <select id="idCodeSelect" @onchange="HandleIdCodeChange">
+                <option value="1">Python</option>
+                <option value="3">C#</option>
+            </select>
 
-    <div style="margin:10px 0;">
-        Theme:
-        <select @onchange="ChangeTheme">
-            <option value="vs">Visual Studio</option>
-            <option value="vs-dark">Visual Studio Dark</option>
-            <option value="hc-black">High Contrast Black</option>
-        </select>
-    </div>
+            <div style="margin:10px 0;">
+                Theme:
+                <select @onchange="ChangeTheme">
+                    <option value="vs">Visual Studio</option>
+                    <option value="vs-dark">Visual Studio Dark</option>
+                    <option value="hc-black">High Contrast Black</option>
+                </select>
+            </div>
 
+            <StandaloneCodeEditor @ref="_editor" ConstructionOptions="EditorConstructionOptions" OnDidInit="EditorOnDidInit" OnDidChangeModelContent="HandleInput" />
 
-    <div>
-        <strong>Code Status</strong>
-        <div>
-            <strong>Error: @sintaxisModel.errors</strong>
-            <ul>
-                @foreach (var errorMsg in sintaxisModel.errorMsg)
-                {
-                    <li>@errorMsg</li>
-                }
-            </ul>
+            <div>
+                <strong>Code Status</strong>
+                <div>
+                    <strong>Error: @sintaxisModel.errors</strong>
+                    <ul>
+                        @foreach (var errorMsg in sintaxisModel.errorMsg)
+                        {
+                            <li>@errorMsg</li>
+                        }
+                    </ul>
+                </div>
+                <div>
+                    <strong>Obs: @sintaxisModel.obs</strong>
+                    <ul>
+                        @foreach (var obMsg in sintaxisModel.obsMsg)
+                        {
+                            <li>@obMsg</li>
+                        }
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div>
-            <strong>Obs: @sintaxisModel.obs</strong>
-            <ul>
-                @foreach (var obMsg in sintaxisModel.obsMsg)
-                {
-                    <li>@obMsg</li>
-                }
-            </ul>
+
+        <div class="right-column">
+            <div>
+                <strong>Output:</strong>
+                <p>@outputModel.idResponse</p>
+                <StandaloneCodeEditor @ref="_output" ConstructionOptions="OutputConstructionOptions"/>
+            </div>
+
+            <div>
+                <button @onclick="RunCompiler">Run</button>
+            </div>
         </div>
     </div>
-
-    <div>
-        <button @onclick="RunCompiler">Run</button>
-    </div>
-
-
-    <StandaloneCodeEditor @ref="_editor" ConstructionOptions="EditorConstructionOptions" OnDidInit="EditorOnDidInit" OnDidChangeModelContent="HandleInput" />
-
-    <div>
-        <strong>Output:</strong>
-        <p>@outputModel.idResponse</p>
-        <StandaloneCodeEditor @ref="_output" ConstructionOptions="OutputConstructionOptions"/>
-    </div>
-
-
 </div>
+
 
 @code {
     private StandaloneCodeEditor _editor = null!;
