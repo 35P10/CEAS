@@ -15,7 +15,7 @@ namespace FrontEnd
             // Registra CEASRepo con la fábrica que toma dos parámetros
             var apiUri = hostEnvironment.IsDevelopment() ?
                 configuration.GetValue<string>("DebugSettings:ApiUri", "http://localhost:5071/")  :
-                configuration.GetValue<string>("ReleaseSettings:ApiUri", "http://35.232.47.253:8080/") ;
+                configuration.GetValue<string>("ReleaseSettings:ApiUri", "http://35.222.131.218:8080/") ;
 
             services.AddTransient<ICEAS>(provider =>
             {
