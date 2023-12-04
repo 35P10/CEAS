@@ -77,7 +77,7 @@
                 
                 <!--<p>@outputModel.idResponse</p>-->
                 <p> </p>
-                <StandaloneCodeEditor @ref="_output" ConstructionOptions="OutputConstructionOptions"   />
+                <StandaloneCodeEditor @ref="_output" ConstructionOptions="OutputConstructionOptions" />
             </div>
 
             
@@ -95,6 +95,7 @@
     private SintaxisModel sintaxisModel = new SintaxisModel();
     private Timer debounceTimer;
     private int debounceDelay = 500;
+    private CancellationTokenSource debounceCancellationTokenSource;
     private string[] decorationIds = new string[0];
 
     private async Task EditorOnDidInit()
