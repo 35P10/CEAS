@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @inject HttpClient httpClient
 
 @using FrontEnd.Services.Contracts;
@@ -78,6 +78,7 @@
     private SintaxisModel sintaxisModel = new SintaxisModel();
     private Timer debounceTimer;
     private int debounceDelay = 500;
+    private CancellationTokenSource debounceCancellationTokenSource;
     private string[] decorationIds =  new string[0];
 
     private async Task EditorOnDidInit()
@@ -129,8 +130,24 @@
 
     private async Task HandleInput(ModelContentChangedEvent e)
     {
-        debounceTimer?.Dispose();
-        debounceTimer = new Timer(async state => await CheckSintaxis(), null, debounceDelay, Timeout.Infinite);
+        debounceCancellationTokenSource?.Cancel();
+
+        debounceCancellationTokenSource = new CancellationTokenSource();
+
+        try
+        {
+            // Esperar durante el tiempo de espera antes de ejecutar CheckSintaxis()
+            await Task.Delay(debounceDelay, debounceCancellationTokenSource.Token);
+
+            // Verificar si la cancelación se solicitó antes de continuar
+            debounceCancellationTokenSource.Token.ThrowIfCancellationRequested();
+
+            await CheckSintaxis();
+        }
+        catch (TaskCanceledException)
+        {
+            // La tarea fue cancelada
+        }
     }
 
     private async Task CheckSintaxis()
