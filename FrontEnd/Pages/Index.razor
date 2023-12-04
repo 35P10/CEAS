@@ -40,9 +40,9 @@
             <StandaloneCodeEditor @ref="_editor" ConstructionOptions="EditorConstructionOptions"
                 OnDidInit="EditorOnDidInit" OnDidChangeModelContent="HandleInput" />
 
-            <div>
+            <div >
                 <strong>Code Status</strong>
-                <div>
+                <div style="text-align: left;">
                     <strong>Error: @sintaxisModel.errors</strong>
                     <ul>
                         @foreach (var errorMsg in sintaxisModel.errorMsg)
@@ -51,7 +51,7 @@
                         }
                     </ul>
                 </div>
-                <div>
+                <div style="text-align: left;">
                     <strong>Obs: @sintaxisModel.obs</strong>
                     <ul>
                         @foreach (var obMsg in sintaxisModel.obsMsg)
@@ -65,14 +65,22 @@
 
         <div class="right-column">
             <div>
-                <strong>Output:</strong>
+                <div class="column-container">
+                    <div class="left-column"style="text-align: left;">
+                        <strong>Output:</strong>
+                    </div>
+                    <div class="right-column" style="text-align: right;" >
+                        <button @onclick="RunCompiler" style="margin-right: 30px;">Run</button>
+                    </div>
+                
+                </div>
+                
                 <!--<p>@outputModel.idResponse</p>-->
-                <StandaloneCodeEditor @ref="_output" ConstructionOptions="OutputConstructionOptions" />
+                <p> </p>
+                <StandaloneCodeEditor @ref="_output" ConstructionOptions="OutputConstructionOptions"   />
             </div>
 
-            <div>
-                <button @onclick="RunCompiler">Run</button>
-            </div>
+            
         </div>
     </div>
 </div>
