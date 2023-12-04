@@ -14,26 +14,35 @@
 
     <div class="column-container">
         <div class="left-column">
-            <label for="idCodeSelect">Select language:</label>
-            <select id="idCodeSelect" @onchange="HandleIdCodeChange">
-                <option value="1">Python</option>
-                <option value="3">C#</option>
-            </select>
-
-            <div style="margin:10px 0;">
-                Theme:
-                <select @onchange="ChangeTheme">
-                    <option value="vs">Visual Studio</option>
-                    <option value="vs-dark">Visual Studio Dark</option>
-                    <option value="hc-black">High Contrast Black</option>
-                </select>
+            <div class="column-container">
+                <div class="left-column">
+                    <label for="idCodeSelect">Select language:</label>
+                    <select id="idCodeSelect" @onchange="HandleIdCodeChange">
+                        <option value="1">Python</option>
+                        <option value="3">C#</option>
+                    </select>
+                </div>
+                <div class="right-column">
+                    <div style="margin:5px 0;">
+                        Select theme:
+                        <select @onchange="ChangeTheme">
+                            <option value="vs">Visual Studio</option>
+                            <option value="vs-dark">Visual Studio Dark</option>
+                            <option value="hc-black">High Contrast Black</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <StandaloneCodeEditor @ref="_editor" ConstructionOptions="EditorConstructionOptions" OnDidInit="EditorOnDidInit" OnDidChangeModelContent="HandleInput" />
 
-            <div>
+
+
+            <StandaloneCodeEditor @ref="_editor" ConstructionOptions="EditorConstructionOptions"
+                OnDidInit="EditorOnDidInit" OnDidChangeModelContent="HandleInput" />
+
+            <div >
                 <strong>Code Status</strong>
-                <div>
+                <div style="text-align: left;">
                     <strong>Error: @sintaxisModel.errors</strong>
                     <ul>
                         @foreach (var errorMsg in sintaxisModel.errorMsg)
@@ -42,7 +51,7 @@
                         }
                     </ul>
                 </div>
-                <div>
+                <div style="text-align: left;">
                     <strong>Obs: @sintaxisModel.obs</strong>
                     <ul>
                         @foreach (var obMsg in sintaxisModel.obsMsg)
@@ -56,14 +65,22 @@
 
         <div class="right-column">
             <div>
-                <strong>Output:</strong>
-                <p>@outputModel.idResponse</p>
-                <StandaloneCodeEditor @ref="_output" ConstructionOptions="OutputConstructionOptions"/>
+                <div class="column-container">
+                    <div class="left-column"style="text-align: left;">
+                        <strong>Output:</strong>
+                    </div>
+                    <div class="right-column" style="text-align: right;" >
+                        <button @onclick="RunCompiler" style="margin-right: 30px;">Run</button>
+                    </div>
+                
+                </div>
+                
+                <!--<p>@outputModel.idResponse</p>-->
+                <p> </p>
+                <StandaloneCodeEditor @ref="_output" ConstructionOptions="OutputConstructionOptions" />
             </div>
 
-            <div>
-                <button @onclick="RunCompiler">Run</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -85,16 +102,16 @@
     {
         var newDecorations = new ModelDeltaDecoration[]
         {
-            new ModelDeltaDecoration
-            {
-                Range = new BlazorMonaco.Range(3,1,3,1),
-                Options = new ModelDecorationOptions
-                {
-                    IsWholeLine = true,
-                    ClassName = "decorationContentC1ass",
-                    GlyphMarginClassName = "decorationGlyphMarginC1ass"
-                }
-            }
+new ModelDeltaDecoration
+{
+Range = new BlazorMonaco.Range(3,1,3,1),
+Options = new ModelDecorationOptions
+{
+IsWholeLine = true,
+ClassName = "decorationContentC1ass",
+GlyphMarginClassName = "decorationGlyphMarginC1ass"
+}
+}
         };
 
         decorationIds = await _editor.DeltaDecorations(null, newDecorations);
@@ -165,28 +182,28 @@
     private StandaloneEditorConstructionOptions EditorConstructionOptions(StandaloneCodeEditor editor)
     {
         return new StandaloneEditorConstructionOptions
-        {
-            AutomaticLayout = true,
-            Language = "python",
-            Value = "",
-            GlyphMargin = true,
-            Folding = false,
-            WordBasedSuggestionsOnlySameLanguage = true
-        };
+            {
+                AutomaticLayout = true,
+                Language = "python",
+                Value = "",
+                GlyphMargin = true,
+                Folding = false,
+                WordBasedSuggestionsOnlySameLanguage = true
+            };
     }
 
     private StandaloneEditorConstructionOptions OutputConstructionOptions(StandaloneCodeEditor editor)
     {
         return new StandaloneEditorConstructionOptions
-        {
-            ReadOnly = true,
-            Contextmenu = false,
-            Language = "plaintext",
-            Value = "Bienvenido a CEAS!",
-            LineNumbers = "off",
-            GlyphMargin = false,
-            Folding = false
-        };
+            {
+                ReadOnly = true,
+                Contextmenu = false,
+                Language = "plaintext",
+                Value = "Bienvenido a CEAS!",
+                LineNumbers = "off",
+                GlyphMargin = false,
+                Folding = false
+            };
     }
 
     private async Task ChangeTheme(ChangeEventArgs e)
